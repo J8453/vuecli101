@@ -1,6 +1,5 @@
 <template>
   <div class="container flex flex-wrap items-center">
-    <img class="m-auto" alt="Vue logo" src="../assets/logo.png" />
     <div class="container">
       <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
     </div>

@@ -1,6 +1,8 @@
 <template>
   <div class="p-7 flex justify-between items-center">
-    <img alt="Taiwan GO" src="@/assets/logo.svg" />
+    <router-link to="/">
+      <img alt="Taiwan GO" src="@/assets/logo.svg" />
+    </router-link>
     <div class="flex">
       <div v-for="(route, idx) in routes" :key="route.path">
         <router-link :to="route.path" class="font-bold">
@@ -18,10 +20,6 @@
 
 <script lang="ts" setup>
 const routes = [
-  {
-    path: '/',
-    label: 'Home',
-  },
   {
     path: '/activities',
     label: '特色活動',

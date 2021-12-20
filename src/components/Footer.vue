@@ -1,7 +1,10 @@
 <template>
   <div class="text-gray-400">
     <div class="py-12 flex flex-col items-center bg-gray-700">
-      <img alt="Taiwan GO" src="@/assets/logo-light.svg" class="my-4" />
+      <router-link to="/">
+        <img alt="Taiwan GO" src="@/assets/logo-light.svg" class="my-4" />
+      </router-link>
+
       <div class="flex my-4">
         <router-link
           v-for="route in routes"
@@ -20,10 +23,6 @@
 <script lang="ts" setup>
 const routes = [
   {
-    path: '/',
-    label: 'Home',
-  },
-  {
     path: '/activities',
     label: '特色活動',
   },
@@ -37,7 +36,7 @@ const routes = [
   },
   {
     path: '/todos',
-    label: 'Todos',
+    label: 'TODOs',
   },
   {
     path: '/vue',
