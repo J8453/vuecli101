@@ -98,6 +98,10 @@ module.exports = {
       'gradient-to-l': 'linear-gradient(to left, var(--tw-gradient-stops))',
       'gradient-to-tl':
         'linear-gradient(to top left, var(--tw-gradient-stops))',
+      // NOTE: 竟然是這樣寫
+      // https://cli.vuejs.org/guide/html-and-static-assets.html#relative-path-imports
+      banner: 'url(./banner.png)',
+      'home-regions': 'url(./home-regions.png)',
     },
     backgroundOpacity: theme => theme('opacity'),
     backgroundPosition: {
@@ -447,6 +451,8 @@ module.exports = {
       '5/6': '83.333333%',
       full: '100%',
       screen: '100vh',
+      // NOTE: Is it ok?
+      banner: '500px',
     }),
     inset: (theme, { negative }) => ({
       auto: 'auto',
@@ -821,6 +827,12 @@ module.exports = {
       40: '40',
       50: '50',
     },
+    extend: {
+      textShadow: {
+        '2xl': '1px 1px 5px rgb(33 34 43 / 60%)',
+        '3xl': '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)',
+      },
+    },
   },
   variantOrder: [
     'first',
@@ -1033,5 +1045,5 @@ module.exports = {
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
-  plugins: [],
+  plugins: [require('tailwindcss-textshadow')],
 }
