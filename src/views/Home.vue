@@ -21,21 +21,65 @@
     <div
       class="h-banner bg-home-regions bg-no-repeat flex justify-center items-start"
     >
-      <div class="self-center ml-28 mr-24">
-        <div class="font-extrabold text-2xl">縣市快選</div>
-        <div>Choose Cities</div>
+      <div class="flex m-16 items-center">
+        <div class="ml-28 mr-20">
+          <div class="font-extrabold text-2xl w-auto">縣市快選</div>
+          <div>Choose Cities</div>
+        </div>
+        <!-- NOTE: `isActive` prop name here should be `is-active` -->
+        <RegionCard
+          v-for="region in regions"
+          :key="region.key"
+          :icon="region.icon"
+          :label="region.label"
+          :is-active="region.isActive"
+          class="m-5"
+        />
       </div>
-      <div class="flex m-16">
-        <RegionCard class="m-5" icon="test" label="北部" />
-        <RegionCard class="m-5" icon="test" label="北部" />
-        <RegionCard class="m-5" icon="test" label="北部" />
-        <RegionCard class="m-5" icon="test" label="北部" />
-        <RegionCard class="m-5" icon="test" label="北部" />
-      </div>
+    </div>
+    <div>
+      <ActivityCard
+        title="大溪豆干節"
+        description="花蓮縣壽豐鄉鹽寮村6鄰福德49-2號"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { reactive } from 'vue'
 import RegionCard from '@/components/RegionCard.vue'
+import ActivityCard from '@/components/ActivityCard.vue'
+const regions = reactive([
+  {
+    key: 'north',
+    icon: 'region-north',
+    label: '北部',
+    isActive: true,
+  },
+  {
+    key: 'middle',
+    icon: 'region-middle',
+    label: '中部',
+    isActive: false,
+  },
+  {
+    key: 'south',
+    icon: 'region-south',
+    label: '南部',
+    isActive: false,
+  },
+  {
+    key: 'east',
+    icon: 'region-east',
+    label: '東部',
+    isActive: false,
+  },
+  {
+    key: 'island',
+    icon: 'region-island',
+    label: '離島',
+    isActive: false,
+  },
+])
 </script>
