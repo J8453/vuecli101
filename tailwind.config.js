@@ -2,6 +2,8 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+  //NOTE: why it's not default? any drawbacks?
+  mode: 'jit',
   purge: ['./public/**/*.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   presets: [],
   darkMode: false, // or 'media' or 'class'
@@ -822,7 +824,6 @@ module.exports = {
       screen: '100vw',
       min: 'min-content',
       max: 'max-content',
-      290: '290px',
     }),
     zIndex: {
       auto: 'auto',
@@ -838,9 +839,9 @@ module.exports = {
         '2xl': '1px 1px 5px rgb(33 34 43 / 60%)',
         '3xl': '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)',
       },
-      aspectRatio: {
-        '4/3': '4/3',
-      },
+      // aspectRatio: {
+      //   '4/3': '4/3',
+      // },
     },
   },
   variantOrder: [
@@ -1056,6 +1057,6 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-textshadow'),
-    // require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 }

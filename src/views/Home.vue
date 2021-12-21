@@ -41,6 +41,7 @@
       <ActivityCard
         title="大溪豆干節"
         description="花蓮縣壽豐鄉鹽寮村6鄰福德49-2號"
+        location="桃園市"
       />
     </div>
   </div>

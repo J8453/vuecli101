@@ -1,16 +1,21 @@
 <template>
   <div
-    class="w-28 pt-5 pb-2 flex flex-col items-center bg-white rounded-lg shadow-lg cursor-pointer"
+    class="w-1/5 flex flex-col items-center bg-white rounded-xl shadow-lg cursor-pointer"
   >
-    <div
+    <div class="w-[290px] h-[243px] bg-gray-200">HELLO</div>
+    <div class="p-3 w-full bg-white flex flex-col">
+      <div class="mt-2 font-bold text-left">{{ title }}</div>
+      <div class="mt-2 mb-4 text-sm text-left">{{ description }}</div>
+      <div class="flex justify-between">
+        <Tag label="年度" />
+        <div v-if="location" class="text-blue-600 text-xs flex items-center">
+          {{ location }}
+        </div>
+      </div>
+    </div>
+    <!-- <div
       class="w-20 h-20 flex-shrink-0 rounded-full bg-green-700 bg-no-repeat bg-center"
-    />
-    <div class="mt-2 font-bold">{{ title }}</div>
-    <Tag label="年度" />
-  </div>
-  <div class="relative">
-    <!-- <div class="aspect-w-4 aspect-h-3 w-1/3 bg-gray-300">HELLO</div> -->
-    <div class="w-[300px] aspect-[4/3] bg-gray-300">HELLO</div>
+    /> -->
   </div>
 </template>
 
@@ -24,6 +29,10 @@ defineProps({
   description: {
     type: String,
     required: true,
+  },
+  location: {
+    type: String,
+    default: null,
   },
 })
 </script>
