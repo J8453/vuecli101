@@ -1,8 +1,8 @@
 <template>
   <div
-    class="w-1/5 flex flex-col items-center bg-white rounded-xl shadow-lg cursor-pointer"
+    class="w-full flex flex-col items-center bg-white rounded-xl shadow-lg cursor-pointer"
   >
-    <div class="w-[290px] h-[243px] bg-gray-200">HELLO</div>
+    <div class="w-[400px] h-[243px] bg-gray-200">HELLO</div>
     <div class="p-3 w-full bg-white flex flex-col">
       <div class="mt-2 font-bold text-left">{{ title }}</div>
       <div class="mt-2 mb-4 text-sm text-left">{{ description }}</div>

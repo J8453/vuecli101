@@ -104,6 +104,7 @@ module.exports = {
       // https://cli.vuejs.org/guide/html-and-static-assets.html#relative-path-imports
       banner: 'url(./banner.png)',
       'home-regions': 'url(./home-regions.png)',
+      north: 'url(./north.png)',
       'region-north': 'url(./regions/north.svg)',
       'region-middle': 'url(./regions/middle.svg)',
       'region-south': 'url(./regions/south.svg)',

@@ -4,7 +4,7 @@
   >
     <div
       class="w-20 h-20 flex-shrink-0 rounded-full bg-green-700 bg-no-repeat bg-center"
-      :class="`bg-` + icon"
+      :class="icon"
     />
     <div class="mt-2 font-bold">{{ label }}</div>
     <div

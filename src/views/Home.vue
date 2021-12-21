@@ -24,7 +24,7 @@
       <div class="flex m-16 items-center">
         <div class="ml-28 mr-20">
           <div class="font-extrabold text-2xl w-auto">縣市快選</div>
-          <div>Choose Cities</div>
+          <div class="bg-region">Choose Cities</div>
         </div>
         <!-- NOTE: `isActive` prop name here should be `is-active` -->
         <RegionCard
@@ -54,31 +54,33 @@ import ActivityCard from '@/components/ActivityCard.vue'
 const regions = reactive([
   {
     key: 'north',
-    icon: 'region-north',
+    icon: 'bg-region-north',
     label: '北部',
     isActive: true,
   },
   {
     key: 'middle',
-    icon: 'region-middle',
+    icon: 'bg-region-middle',
+    // TODO: why this can't work?
+    // icon: 'bg-[url("./regions/north.svg")]',
     label: '中部',
     isActive: false,
   },
   {
     key: 'south',
-    icon: 'region-south',
+    icon: 'bg-region-south',
     label: '南部',
     isActive: false,
   },
   {
     key: 'east',
-    icon: 'region-east',
+    icon: 'bg-region-east',
     label: '東部',
     isActive: false,
   },
   {
     key: 'island',
-    icon: 'region-island',
+    icon: 'bg-region-island',
     label: '離島',
     isActive: false,
   },
