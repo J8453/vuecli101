@@ -144,7 +144,6 @@ module.exports = {
       // NOTE: 竟然是這樣寫
       // https://cli.vuejs.org/guide/html-and-static-assets.html#relative-path-imports
       banner: 'url(./banner.png)',
-      'home-regions': 'url(./home-regions.png)',
       north: 'url(./north.png)',
       'region-north': 'url(./regions/north.svg)',
       'region-middle': 'url(./regions/middle.svg)',
