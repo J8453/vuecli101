@@ -1,8 +1,18 @@
 <template>
   <div
-    class="w-full flex flex-col items-center bg-white rounded-xl shadow-lg cursor-pointer"
+    class="w-[290px] flex flex-col bg-white rounded-xl shadow-lg cursor-pointer overflow-hidden"
   >
-    <div class="w-[400px] h-[243px] bg-gray-200">HELLO</div>
+    <!-- <div class="h-[243px] bg-gray-200">
+      <img src="https://www.fillmurray.com/640/360" />
+    </div> -->
+    <!-- <img
+      :src="require('@/assets/regions/north.svg')"
+      class="h-[243px] bg-gray-300"
+    /> -->
+    <img
+      class="h-[243px] bg-gray-300 object-cover"
+      src="http://placeimg.com/640/480/arch"
+    />
     <div class="p-3 w-full bg-white flex flex-col">
       <div class="mt-2 font-bold text-left">{{ title }}</div>
       <div class="mt-2 mb-4 text-sm text-left">{{ description }}</div>
@@ -13,14 +23,12 @@
         </div>
       </div>
     </div>
-    <!-- <div
-      class="w-20 h-20 flex-shrink-0 rounded-full bg-green-700 bg-no-repeat bg-center"
-    /> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 import Tag from '@/components/Tag.vue'
+import Image from '@/assets/regions/north.svg'
 defineProps({
   title: {
     type: String,
