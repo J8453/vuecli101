@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="flex flex-col justify-center items-center h-banner bg-banner bg-center bg-cover bg-no-repeat text-white text-shadow-2xl"
+      class="flex flex-col justify-center items-center h-[500px] bg-banner bg-center bg-cover bg-no-repeat text-white text-shadow-2xl"
     >
       <div class="text-4xl mt-12 mb-3 font-extrabold">想去哪裡玩？</div>
       <div>這裡共有上千個活動及美食等著你去一同體驗</div>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div
-      class="h-banner bg-home-regions bg-no-repeat flex justify-center items-start"
+      class="h-[500px] bg-home-regions bg-no-repeat flex justify-center items-start"
     >
       <div class="flex m-16 items-center">
         <div class="ml-28 mr-20">

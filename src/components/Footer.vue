@@ -1,6 +1,6 @@
 <template>
-  <div class="text-gray-400">
-    <div class="py-12 flex flex-col items-center bg-gray-700">
+  <div class="text-neutral-400">
+    <div class="py-12 flex flex-col items-center bg-neutral-700">
       <router-link to="/">
         <img alt="Taiwan GO" src="@/assets/logo-light.svg" class="my-4" />
       </router-link>
@@ -16,7 +16,9 @@
         </router-link>
       </div>
     </div>
-    <div class="container-full py-2 bg-gray-800 text-xs">台灣旅遊景點導覽</div>
+    <div class="container-full py-2 bg-neutral-800 text-xs">
+      台灣旅遊景點導覽
+    </div>
   </div>
 </template>
 

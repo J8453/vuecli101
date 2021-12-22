@@ -10,7 +10,7 @@
       class="h-[243px] bg-gray-300"
     /> -->
     <img
-      class="h-[243px] bg-gray-300 object-cover"
+      class="h-[243px] object-cover"
       src="http://placeimg.com/640/480/arch"
     />
     <div class="p-3 w-full bg-white flex flex-col">
@@ -28,7 +28,6 @@
 
 <script lang="ts" setup>
 import Tag from '@/components/Tag.vue'
-import Image from '@/assets/regions/north.svg'
 defineProps({
   title: {
     type: String,

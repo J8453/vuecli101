@@ -11,13 +11,13 @@
     </div>
     <div class="w-48 flex">
       <button
-        class="flex-1 font-bold bg-yellow-500 border rounded-md border-gray-500 mx-1 px-3 py-2"
+        class="flex-1 font-bold bg-yellow-500 border rounded-md border-neutral-500 mx-1 px-3 py-2"
         @click="todos.removeTodo(todo.uuid)"
       >
         DELETE
       </button>
       <button
-        class="flex-1 border rounded-md border-gray-500 mx-1 px-3 py-2"
+        class="flex-1 border rounded-md border-neutral-500 mx-1 px-3 py-2"
         @click="handleClickEdit(todo)"
       >
         {{ todo.isEditing ? 'SAVE' : 'EDIT' }}

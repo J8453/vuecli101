@@ -12,10 +12,10 @@
       <input
         v-model="inputValue"
         type="text"
-        class="w-96 border rounded-md border-gray-500 mx-1 px-3 py-2"
+        class="w-96 border rounded-md border-neutral-500 mx-1 px-3 py-2"
       />
       <button
-        class="w-36 border rounded-md border-gray-500 mx-1 px-3 py-2"
+        class="w-36 border rounded-md border-neutral-500 mx-1 px-3 py-2"
         @click="handleClickAdd()"
       >
         ADD TODO
