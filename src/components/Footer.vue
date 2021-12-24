@@ -36,10 +36,6 @@ const routes = [
     path: '/accommodations',
     label: '精選住宿',
   },
-  {
-    path: '/todos',
-    label: 'TODOs',
-  },
 ]
 </script>
 
