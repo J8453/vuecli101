@@ -1,4 +1,12 @@
 import { defineStore } from 'pinia'
+import {
+  Activity,
+  getActivities,
+  getHotels,
+  getRestaurants,
+  Hotel,
+  Restaurant,
+} from '@/services/api/tourism'
 
 export enum Region {
   north = 'north',
@@ -8,11 +16,39 @@ export enum Region {
   island = 'island',
 }
 
-interface Activity {
-  cover: string
-  title: string
-  description: string
-  location: string
+const CITIES = {
+  [Region.north]: [
+    { name: '基隆市', value: 'Keelung' },
+    { name: '台北市', value: 'Taipei' },
+    { name: '新北市', value: 'NewTaipei' },
+    { name: '桃園市', value: 'Taoyuan' },
+    { name: '新竹縣', value: 'HsinchuCounty' },
+    { name: '新竹市', value: 'Hsinchu' },
+    { name: '宜蘭縣', value: 'YilanCounty' },
+  ],
+  [Region.middle]: [
+    { name: '苗栗縣', value: 'MiaoliCounty' },
+    { name: '台中市', value: 'Taichung' },
+    { name: '彰化縣', value: 'ChanghuaCounty' },
+    { name: '雲林縣', value: 'YunlinCounty' },
+    { name: '南投縣', value: 'NantouCounty' },
+  ],
+  [Region.south]: [
+    { name: '嘉義縣', value: 'ChiayiCounty' },
+    { name: '嘉義市', value: 'Chiayi' },
+    { name: '台南市', value: 'Tainan' },
+    { name: '高雄市', value: 'Kaohsiung' },
+    { name: '屏東縣', value: 'PingtungCounty' },
+  ],
+  [Region.east]: [
+    { name: '台東縣', value: 'TaitungCounty' },
+    { name: '花蓮縣', value: 'HualienCounty' },
+  ],
+  [Region.island]: [
+    { name: '澎湖縣', value: 'PenghuCounty' },
+    { name: '金門縣', value: 'KinmenCounty' },
+    { name: '連江縣', value: 'LienchiangCounty' },
+  ],
 }
 
 export const useHome = defineStore('home', {
@@ -21,7 +57,11 @@ export const useHome = defineStore('home', {
     return {
       // all these properties will have their type inferred automatically
       currentRegion: Region.north,
+      cities: CITIES[Region.north],
+      currentCity: CITIES[Region.north][1].value,
       activities: [] as Activity[],
+      hotels: [] as Hotel[],
+      restaurants: [] as Restaurant[],
     }
   },
   getters: {
@@ -30,57 +70,31 @@ export const useHome = defineStore('home', {
     },
   },
   actions: {
-    async setCurrent(region: Region) {
+    async setCurrentRegion(region: Region) {
       this.activities = []
       this.currentRegion = region
+      const cities = CITIES[region]
+      const currentCity = cities[0].value
+      this.cities = cities
+      await this.setCurrentCity(currentCity)
+    },
+    async setCurrentCity(city: string) {
+      this.currentCity = city
+      await this.fetchPageData(city)
+    },
+    async fetchPageData(city: string) {
+      // console.log(`fetching city data: `, city)
 
-      // fetch data here; mock it with setTimeout for now
-      console.log(new Date())
-      await new Promise(r =>
-        setTimeout(() => {
-          console.log('resolved', new Date())
-          r(undefined)
-        }, 500)
-      )
+      const [activities, restaurants, hotels] = await Promise.all([
+        getActivities({ city, $top: 6 }),
+        getRestaurants({ city, $top: 15 }),
+        getHotels({ city, $top: 4 }),
+      ])
+      // console.log(activities, restaurants, hotels)
 
-      this.activities = [
-        {
-          cover: 'https://picsum.photos/id/54/500/300',
-          title: '2021大溪豆干節',
-          description: '花蓮縣壽豐鄉鹽寮村6鄰福德49-2號',
-          location: '桃園市',
-        },
-        {
-          cover: 'https://picsum.photos/id/34/300/300',
-          title: '2021臺北燈節',
-          description: '臺北市政府觀光傳播局',
-          location: '臺北市',
-        },
-        {
-          cover: 'https://picsum.photos/id/193/400/300',
-          title: '2021桃園國際風箏節',
-          description: '桃園市政府觀光旅遊局',
-          location: '桃園市',
-        },
-        {
-          cover: 'https://picsum.photos/id/65/300/300',
-          title: '2021陽明山花季',
-          description: '臺北市政府工務局公園路燈工程管理處',
-          location: '臺北市',
-        },
-        {
-          cover: 'https://picsum.photos/id/143/200/300',
-          title: '2021桃園花彩節',
-          description: '桃園市政府農業局',
-          location: '桃園市',
-        },
-        {
-          cover: 'https://picsum.photos/id/31/200/300',
-          title: '2021龍岡米干節',
-          description: '桃園市政府農業局',
-          location: '桃園市',
-        },
-      ]
+      this.activities = activities ?? []
+      this.restaurants = restaurants ?? []
+      this.hotels = hotels ?? []
     },
   },
 })

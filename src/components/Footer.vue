@@ -40,10 +40,6 @@ const routes = [
     path: '/todos',
     label: 'TODOs',
   },
-  {
-    path: '/vue',
-    label: 'Vue',
-  },
 ]
 </script>
 

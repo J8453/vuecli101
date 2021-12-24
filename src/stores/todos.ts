@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { v4 as uuidv4 } from 'uuid'
-
 export interface TodoItem {
   uuid: string
   isEditing: boolean

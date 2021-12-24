@@ -1,14 +1,21 @@
 <template>
   <div
-    class="w-[231px] h-[335px] flex rounded-xl cursor-pointer bg-cover bg-center z-1"
-    :style="{ backgroundImage: `url(${cover})` }"
+    class="w-[231px] h-[335px] min-w-[231px] flex rounded-xl cursor-pointer bg-cover bg-center z-1"
+    :style="{
+      backgroundImage: `url(${cover}), linear-gradient(360deg, #00000095 0%, rgba(0, 0, 0, 0) 100%)`,
+      backgroundBlendMode: 'overlay',
+    }"
   >
     <div class="p-3 w-full self-end flex justify-between items-end text-white">
       <div class="flex flex-col">
-        <div class="mt-2 font-bold text-left">{{ title }}</div>
-        <div class="mt-2 text-sm text-left">{{ description }}</div>
+        <div class="font-bold text-left">{{ title }}</div>
+        <div class="text-sm text-left">{{ description }}</div>
       </div>
-      <Tag :label="location" class="bg-black flex-shrink-0" />
+      <Tag
+        v-if="location"
+        :label="location"
+        class="bg-gray-900 flex-shrink-0"
+      />
     </div>
   </div>
 </template>
@@ -22,11 +29,11 @@ defineProps({
   },
   title: {
     type: String,
-    required: true,
+    default: 'N/A',
   },
   description: {
     type: String,
-    required: true,
+    default: 'N/A',
   },
   location: {
     type: String,
