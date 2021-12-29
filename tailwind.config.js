@@ -141,10 +141,10 @@ module.exports = {
       'gradient-to-l': 'linear-gradient(to left, var(--tw-gradient-stops))',
       'gradient-to-tl':
         'linear-gradient(to top left, var(--tw-gradient-stops))',
-      // NOTE: 竟然是這樣寫
+      // NOTE:
       // https://cli.vuejs.org/guide/html-and-static-assets.html#relative-path-imports
-      banner: 'url(./banner.png)',
-      north: 'url(./north.png)',
+      banner1: 'url(./banner1.png)',
+      banner2: 'url(./banner2.png)',
       'region-north': 'url(./regions/north.svg)',
       'region-middle': 'url(./regions/middle.svg)',
       'region-south': 'url(./regions/south.svg)',
@@ -974,5 +974,5 @@ module.exports = {
     'active',
     'disabled',
   ],
-  plugins: [require('tailwindcss-textshadow')],
+  plugins: [require('tailwindcss-textshadow'), require('@tailwindcss/line-clamp')],
 }

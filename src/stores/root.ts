@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import {
-  Activity,
   getActivities,
-  getHotels,
   getRestaurants,
-  Hotel,
+  getHotels,
+  getSpots,
+  Activity,
   Restaurant,
+  Hotel,
+  Spot,
 } from '@/services/api/tourism'
 
 export enum Region {
@@ -51,17 +53,18 @@ const CITIES = {
   ],
 }
 
-export const useHome = defineStore('home', {
+export const useRoot = defineStore('root', {
   // arrow function recommended for full type inference
   state: () => {
     return {
       // all these properties will have their type inferred automatically
       currentRegion: Region.north,
       cities: CITIES[Region.north],
-      currentCity: CITIES[Region.north][1].value,
+      currentCity: CITIES[Region.north][1],
       activities: [] as Activity[],
       hotels: [] as Hotel[],
       restaurants: [] as Restaurant[],
+      spots: [] as Spot[],
     }
   },
   getters: {
@@ -74,27 +77,43 @@ export const useHome = defineStore('home', {
       this.activities = []
       this.currentRegion = region
       const cities = CITIES[region]
-      const currentCity = cities[0].value
+      const currentCity = cities[0]
       this.cities = cities
       await this.setCurrentCity(currentCity)
     },
-    async setCurrentCity(city: string) {
+    async setCurrentCity(city: { name: string; value: string }) {
       this.currentCity = city
-      await this.fetchPageData(city)
+      await this.fetchPageData(city.value)
     },
-    async fetchPageData(city: string) {
-      // console.log(`fetching city data: `, city)
+    async fetchPageData(cityValue: string) {
+      console.log(`fetching city data: `, cityValue)
 
       const [activities, restaurants, hotels] = await Promise.all([
-        getActivities({ city, $top: 6 }),
-        getRestaurants({ city, $top: 15 }),
-        getHotels({ city, $top: 4 }),
+        getActivities({ city: cityValue, $top: 6 }),
+        getRestaurants({ city: cityValue, $top: 15 }),
+        getHotels({ city: cityValue, $top: 4 }),
       ])
-      // console.log(activities, restaurants, hotels)
+      console.log(activities, restaurants, hotels)
 
       this.activities = activities ?? []
       this.restaurants = restaurants ?? []
       this.hotels = hotels ?? []
+    },
+    async fetchDetailPageData(cityValue: string) {
+      console.log(`fetching city data: `, cityValue)
+
+      const [activities, restaurants, hotels, spots] = await Promise.all([
+        getActivities({ city: cityValue, $top: 32 }),
+        getRestaurants({ city: cityValue, $top: 32 }),
+        getHotels({ city: cityValue, $top: 32 }),
+        getSpots({ city: cityValue, $top: 32 }),
+      ])
+      console.log(activities, restaurants, hotels, spots)
+
+      this.activities = activities ?? []
+      this.restaurants = restaurants ?? []
+      this.hotels = hotels ?? []
+      this.spots = spots ?? []
     },
   },
 })

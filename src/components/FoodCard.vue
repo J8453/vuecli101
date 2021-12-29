@@ -14,7 +14,7 @@
       <Tag
         v-if="location"
         :label="location"
-        class="bg-gray-900 flex-shrink-0"
+        class="!bg-neutral-900 flex-shrink-0"
       />
     </div>
   </div>

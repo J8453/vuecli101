@@ -15,15 +15,24 @@ interface InfoBase {
 
 export interface Activity extends InfoBase {
   ActivityID: string
+  ActivityName: string
 }
 export interface Restaurant extends InfoBase {
   RestaurantID: string
+  RestaurantName: string
   Class?: string
 }
 export interface Hotel extends InfoBase {
   HotelID: string
+  HotelName: string
   Class?: string
   Spec?: string
+}
+export interface Spot extends InfoBase {
+  ScenicSpotID: string
+  ScenicSpotName: string
+  OpenTime?: string
+  DescriptionDetail?: string
 }
 
 /**
@@ -85,6 +94,28 @@ export const getHotels = async ({
   }
   try {
     return await $http.get(`/Hotel/${city}`, {
+      params: { ...params, ...data },
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+/**
+ * Get spots
+ */
+export const getSpots = async ({
+  city,
+  ...data
+}: {
+  city: string
+  $top: number
+}): Promise<Spot[] | undefined> => {
+  const params = {
+    $format: 'JSON',
+  }
+  try {
+    return await $http.get(`/ScenicSpot/${city}`, {
       params: { ...params, ...data },
     })
   } catch (error) {

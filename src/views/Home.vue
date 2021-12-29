@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="flex flex-col justify-center items-center h-[500px] bg-banner bg-center bg-cover bg-no-repeat text-white text-shadow-2xl"
+      class="flex flex-col justify-center items-center h-[500px] bg-banner1 bg-center bg-cover bg-no-repeat text-white text-shadow-2xl"
     >
       <div class="text-4xl mt-12 mb-3 font-extrabold">想去哪裡玩？</div>
       <div>這裡共有上千個活動及美食等著你去一同體驗</div>
@@ -27,35 +27,12 @@
           <div class="font-extrabold text-2xl w-auto">縣市快選</div>
           <div>Choose Cities</div>
         </div>
-        <!-- NOTE: `is-active` attr is converting to `isActive` prop in RegionCard  -->
-        <RegionCard
-          v-for="region in regions"
-          :key="region.key"
-          class="m-5"
-          :icon="region.icon"
-          :label="region.label"
-          :is-active="store.currentRegion === region.key"
-          @click="store.setCurrentRegion(region.key)"
+        <CitySelector
+          :current-region="store.currentRegion"
+          :current-city="store.currentCity"
+          @region-change="region => store.setCurrentRegion(region)"
+          @city-change="city => store.setCurrentCity(city)"
         />
-      </div>
-      <div class="pb-16">
-        <span
-          v-for="city in store.cities"
-          :key="city.value"
-          class="text-sm rounded-2xl px-3 py-2 mx-2 hover:bg-white cursor-pointer"
-        >
-          <span
-            class="border-b-2 border-solid pb-1"
-            :class="
-              store.currentCity === city.value
-                ? 'border-green-700'
-                : 'border-transparent'
-            "
-            @click="store.setCurrentCity(city.value)"
-          >
-            {{ city.name }}
-          </span>
-        </span>
       </div>
     </div>
     <div class="relative">
@@ -70,8 +47,9 @@
             v-for="activity in store.activitiesGroup[0]"
             :key="activity.ID"
             :cover="activity?.Picture?.PictureUrl1 ?? placeholder"
-            :title="activity.Name"
+            :title="activity.ActivityName"
             :description="activity.Address"
+            tag="年度"
             :location="activity.City"
             class="m-3"
           />
@@ -79,7 +57,12 @@
             <div class="font-extrabold text-2xl w-auto">多久沒有</div>
             <div class="font-extrabold text-2xl w-auto">出門走走了呢？</div>
             <div>Let's get out</div>
-            <Button label="更多 Funny" class="text-white mt-3 py-3 px-5" />
+            <Button
+              class="text-white mt-3 py-3 px-5"
+              @click="router.push('/more')"
+            >
+              更多 Funny
+            </Button>
           </div>
         </div>
         <div class="flex justify-center items-center">
@@ -87,8 +70,9 @@
             v-for="activity in store.activitiesGroup[1]"
             :key="activity.ID"
             :cover="activity?.Picture?.PictureUrl1 ?? placeholder"
-            :title="activity.Name"
+            :title="activity.ActivityName"
             :description="activity.Address"
+            tag="年度"
             :location="activity.City"
             class="m-3"
           />
@@ -100,7 +84,12 @@
         <div class="flex-shrink-0 ml-28 mr-20 text-left">
           <div class="font-extrabold text-2xl w-auto">餐廳美食</div>
           <div>Tasty</div>
-          <Button label="更多美味" class="text-white mt-3 py-3 px-5" />
+          <Button
+            class="text-white mt-3 py-3 px-5"
+            @click="router.push('/more')"
+          >
+            更多美味
+          </Button>
         </div>
         <div class="flex overflow-x-scroll">
           <!-- NOTE: `isActive` prop name here should be `is-active` -->
@@ -108,7 +97,7 @@
             v-for="restaurant in store.restaurants"
             :key="restaurant.ID"
             :cover="restaurant.Picture?.PictureUrl1 ?? placeholder"
-            :title="restaurant.Name"
+            :title="restaurant.RestaurantName"
             :description="restaurant.Class"
             :location="restaurant.City"
             class="m-5"
@@ -128,7 +117,7 @@
           v-for="(hotel, idx) in store.hotels"
           :key="hotel.ID"
           :cover="hotel.Picture?.PictureUrl1 ?? placeholder"
-          :title="hotel.Name"
+          :title="hotel.HotelName"
           :description="hotel.Class"
           :location="hotel.City"
           :price="hotel.Spec"
@@ -136,48 +125,24 @@
           :class="idx % 2 === 0 ? 'top-5' : ''"
         />
       </div>
-      <Button label="更多住宿" class="text-white mt-3 py-3 px-5" />
+      <Button class="text-white mt-3 py-3 px-5" @click="router.push('/more')">
+        更多住宿
+      </Button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
 import Button from '@/components/Button.vue'
-import RegionCard from '@/components/RegionCard.vue'
+import CitySelector from '@/components/CitySelector.vue'
 import InfoCard from '@/components/InfoCard.vue'
 import FoodCard from '@/components/FoodCard.vue'
-import { useHome, Region } from '@/stores/home'
-const store = useHome()
-const regions = reactive([
-  {
-    key: Region.north,
-    icon: 'bg-region-north',
-    label: '北部',
-  },
-  {
-    key: Region.middle,
-    icon: 'bg-region-middle',
-    label: '中部',
-  },
-  {
-    key: Region.south,
-    icon: 'bg-region-south',
-    label: '南部',
-  },
-  {
-    key: Region.east,
-    icon: 'bg-region-east',
-    label: '東部',
-  },
-  {
-    key: Region.island,
-    icon: 'bg-region-island',
-    label: '離島',
-  },
-])
+import { useRoot } from '@/stores/root'
+import { useRouter } from 'vue-router'
+const store = useRoot()
+const router = useRouter()
 const placeholder = `https://picsum.photos/id/${Math.floor(
   Math.random() * 150
 )}/500/300`
-store.fetchPageData(store.currentCity)
+store.fetchPageData(store.currentCity.value)
 </script>

@@ -23,12 +23,15 @@ const Authorization =
 $http.defaults.headers.common['Authorization'] = Authorization
 $http.defaults.headers.common['X-Date'] = GMTString
 
-$http.interceptors.response.use(res => {
-  if (res.status === 200) {
-    const { data } = res
-    return Promise.resolve(data)
-  }
-  return Promise.resolve(res)
-})
+$http.interceptors.response.use(
+  res => {
+    if (res.status === 200) {
+      const { data } = res
+      return Promise.resolve(data)
+    }
+    return Promise.resolve(res)
+  },
+  error => Promise.reject(error)
+)
 
 export default $http
