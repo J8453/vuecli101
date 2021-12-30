@@ -150,7 +150,8 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, toRefs } from 'vue'
+import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRoot } from '@/stores/root'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
@@ -166,7 +167,7 @@ const store = useRoot()
 const getPlaceholder = () =>
   `https://picsum.photos/id/${Math.floor(Math.random() * 150)}/500/300`
 
-const { currentCity } = toRefs(store)
+const { currentCity } = storeToRefs(store)
 watch(currentCity, city => {
   store.fetchDetailPageData(city.value)
 })

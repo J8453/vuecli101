@@ -136,7 +136,8 @@ import Button from '@/components/Button.vue'
 import CitySelector from '@/components/CitySelector.vue'
 import InfoCard from '@/components/InfoCard.vue'
 import FoodCard from '@/components/FoodCard.vue'
-import { toRefs, watch } from 'vue'
+import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRoot } from '@/stores/root'
 import { useRouter } from 'vue-router'
 const store = useRoot()
@@ -144,7 +145,7 @@ const router = useRouter()
 const getPlaceholder = () =>
   `https://picsum.photos/id/${Math.floor(Math.random() * 150)}/500/300`
 
-const { currentCity } = toRefs(store)
+const { currentCity } = storeToRefs(store)
 watch(currentCity, city => {
   store.fetchPageData(city.value)
 })
