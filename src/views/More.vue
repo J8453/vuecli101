@@ -26,6 +26,7 @@
       </div>
       <div class="w-[1320px]">
         <swiper
+          class="swiper px-5 pb-12"
           :slides-per-view="4"
           :space-between="30"
           :slides-per-group="4"
@@ -34,12 +35,11 @@
             clickable: true,
           }"
           :navigation="true"
-          class="mySwiper"
         >
           <swiper-slide v-for="spot in store.spots" :key="spot.ScenicSpotID">
             <InfoCard
               :key="spot.ScenicSpotID"
-              :cover="spot?.Picture?.PictureUrl1 ?? placeholder"
+              :cover="spot?.Picture?.PictureUrl1 ?? getPlaceholder()"
               :title="spot.ScenicSpotName"
               :description="spot.DescriptionDetail ?? 'N/A'"
               :open-time="spot.OpenTime ?? 'N/A'"
@@ -51,11 +51,11 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center pb-16">
       <div class="self-start flex text-xl mx-[80px] my-12">特色活動</div>
       <div class="w-[1320px]">
         <swiper
-          class="swiper"
+          class="swiper px-5"
           :slides-per-view="4"
           :grid="{
             fill: 'row',
@@ -73,7 +73,7 @@
             :key="activity.ActivityID"
           >
             <InfoCard
-              :cover="activity?.Picture?.PictureUrl1 ?? placeholder"
+              :cover="activity?.Picture?.PictureUrl1 ?? getPlaceholder()"
               :title="activity.ActivityName"
               :description="activity.Address"
               :location="activity.City"
@@ -84,57 +84,73 @@
       </div>
     </div>
 
-    <!-- <div class="h-[500px] bg-[url(./home-restaurants.png)] bg-no-repeat">
-      <div class="flex m-16 items-center pt-[64px]">
-        <div class="flex-shrink-0 ml-28 mr-20 text-left">
-          <div class="font-extrabold text-2xl w-auto">餐廳美食</div>
-          <div>Tasty</div>
-          <Button label="更多美味" class="text-white mt-3 py-3 px-5" />
-        </div>
-        <div class="flex overflow-x-scroll">
-          <FoodCard
+    <div class="flex flex-col items-center bg-neutral-100 pb-16">
+      <div class="self-start flex text-xl mx-[80px] my-12">餐飲美食</div>
+      <div class="w-[1320px]">
+        <swiper
+          class="swiper px-4 pb-12"
+          :slides-per-view="5"
+          :grid="{
+            fill: 'row',
+            rows: 2,
+          }"
+          :slides-per-group="5"
+          :space-between="30"
+          :pagination="{
+            clickable: true,
+          }"
+          :navigation="true"
+        >
+          <swiper-slide
             v-for="restaurant in store.restaurants"
-            :key="restaurant.ID"
-            :cover="restaurant.Picture?.PictureUrl1 ?? placeholder"
-            :title="restaurant.RestaurantName"
-            :description="restaurant.Class"
-            :location="restaurant.City"
-            class="m-5"
-          />
-        </div>
+            :key="restaurant.RestaurantID"
+          >
+            <FoodCard
+              :cover="restaurant?.Picture?.PictureUrl1 ?? getPlaceholder()"
+              :title="restaurant.RestaurantName"
+              :description="restaurant.Class"
+              :location="restaurant.City"
+              class="m-3 !aspect-square"
+            />
+          </swiper-slide>
+        </swiper>
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div
-      class="py-20 bg-[url(./home-accommodations.png)] bg-no-repeat bg-bottom bg-[length:100%_auto]"
-    >
-      <div class="ml-7">
-        <div class="font-extrabold text-2xl w-auto">精選住宿</div>
-        <div>Accommodation</div>
+    <div class="flex flex-col items-center pb-16">
+      <div class="self-start flex text-xl mx-[80px] my-12">優質住宿</div>
+      <div class="w-[1320px]">
+        <swiper
+          class="swiper px-5 pb-12"
+          :slides-per-view="4"
+          :grid="{
+            fill: 'row',
+            rows: 2,
+          }"
+          :slides-per-group="4"
+          :space-between="30"
+          :pagination="{
+            clickable: true,
+          }"
+          :navigation="true"
+        >
+          <swiper-slide v-for="hotel in store.hotels" :key="hotel.HotelID">
+            <InfoCard
+              :cover="hotel.Picture?.PictureUrl1 ?? getPlaceholder()"
+              :title="hotel.HotelName"
+              :description="hotel.Class"
+              :location="hotel.City"
+              :price="hotel.Spec"
+            />
+          </swiper-slide>
+        </swiper>
       </div>
-      <div class="flex justify-center my-7 relative">
-        <InfoCard
-          v-for="(hotel, idx) in store.hotels"
-          :key="hotel.ID"
-          :cover="hotel.Picture?.PictureUrl1 ?? placeholder"
-          :title="hotel.HotelName"
-          :description="hotel.Class"
-          :location="hotel.City"
-          :price="hotel.Spec"
-          class="m-5 relative"
-          :class="idx % 2 === 0 ? 'top-5' : ''"
-        />
-      </div>
-      <Button label="更多住宿" class="text-white mt-3 py-3 px-5" />
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/Button.vue'
-import CitySelector from '@/components/CitySelector.vue'
-import InfoCard from '@/components/InfoCard.vue'
-import FoodCard from '@/components/FoodCard.vue'
+import { watch, toRefs } from 'vue'
 import { useRoot } from '@/stores/root'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
@@ -142,12 +158,18 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import 'swiper/css/grid'
 import SwiperCore, { Pagination, Navigation, Grid } from 'swiper'
+import CitySelector from '@/components/CitySelector.vue'
+import InfoCard from '@/components/InfoCard.vue'
+import FoodCard from '@/components/FoodCard.vue'
 SwiperCore.use([Pagination, Navigation, Grid])
-
 const store = useRoot()
-const placeholder = `https://picsum.photos/id/${Math.floor(
-  Math.random() * 150
-)}/500/300`
+const getPlaceholder = () =>
+  `https://picsum.photos/id/${Math.floor(Math.random() * 150)}/500/300`
+
+const { currentCity } = toRefs(store)
+watch(currentCity, city => {
+  store.fetchDetailPageData(city.value)
+})
 store.fetchDetailPageData(store.currentCity.value)
 </script>
 

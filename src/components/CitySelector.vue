@@ -2,8 +2,6 @@
   <div>
     <div class="flex">
       <!-- NOTE: `is-active` attr is converting to `isActive` prop in RegionCard  -->
-      <!-- @click="store.setCurrentRegion(region.key)" -->
-      <!-- :is-active="store.currentRegion === region.key" -->
       <RegionCard
         v-for="region in regions"
         :key="region.key"
@@ -15,8 +13,6 @@
       />
     </div>
     <div class="pt-9 pb-16">
-      <!-- @click="store.setCurrentCity(city.value)" -->
-      <!-- store.currentCity === city.value -->
       <span
         v-for="city in store.cities"
         :key="city.value"

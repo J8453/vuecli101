@@ -83,7 +83,6 @@ export const useRoot = defineStore('root', {
     },
     async setCurrentCity(city: { name: string; value: string }) {
       this.currentCity = city
-      await this.fetchPageData(city.value)
     },
     async fetchPageData(cityValue: string) {
       console.log(`fetching city data: `, cityValue)
@@ -93,7 +92,7 @@ export const useRoot = defineStore('root', {
         getRestaurants({ city: cityValue, $top: 15 }),
         getHotels({ city: cityValue, $top: 4 }),
       ])
-      console.log(activities, restaurants, hotels)
+      // console.log(activities, restaurants, hotels)
 
       this.activities = activities ?? []
       this.restaurants = restaurants ?? []
@@ -104,11 +103,11 @@ export const useRoot = defineStore('root', {
 
       const [activities, restaurants, hotels, spots] = await Promise.all([
         getActivities({ city: cityValue, $top: 32 }),
-        getRestaurants({ city: cityValue, $top: 32 }),
+        getRestaurants({ city: cityValue, $top: 40 }),
         getHotels({ city: cityValue, $top: 32 }),
         getSpots({ city: cityValue, $top: 32 }),
       ])
-      console.log(activities, restaurants, hotels, spots)
+      // console.log(activities, restaurants, hotels, spots)
 
       this.activities = activities ?? []
       this.restaurants = restaurants ?? []

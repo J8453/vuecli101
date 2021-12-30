@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[231px] h-[335px] min-w-[231px] flex rounded-xl cursor-pointer bg-cover bg-center z-1"
+    class="w-[231px] min-w-[231px] aspect-[3/5] flex rounded-xl cursor-pointer bg-cover bg-center z-1"
     :style="{
       backgroundImage: `url(${cover}), linear-gradient(360deg, #00000095 0%, rgba(0, 0, 0, 0) 100%)`,
       backgroundBlendMode: 'overlay',

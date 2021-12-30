@@ -46,7 +46,7 @@
           <InfoCard
             v-for="activity in store.activitiesGroup[0]"
             :key="activity.ID"
-            :cover="activity?.Picture?.PictureUrl1 ?? placeholder"
+            :cover="activity?.Picture?.PictureUrl1 ?? getPlaceholder()"
             :title="activity.ActivityName"
             :description="activity.Address"
             tag="年度"
@@ -69,7 +69,7 @@
           <InfoCard
             v-for="activity in store.activitiesGroup[1]"
             :key="activity.ID"
-            :cover="activity?.Picture?.PictureUrl1 ?? placeholder"
+            :cover="activity?.Picture?.PictureUrl1 ?? getPlaceholder()"
             :title="activity.ActivityName"
             :description="activity.Address"
             tag="年度"
@@ -92,11 +92,10 @@
           </Button>
         </div>
         <div class="flex overflow-x-scroll">
-          <!-- NOTE: `isActive` prop name here should be `is-active` -->
           <FoodCard
             v-for="restaurant in store.restaurants"
             :key="restaurant.ID"
-            :cover="restaurant.Picture?.PictureUrl1 ?? placeholder"
+            :cover="restaurant.Picture?.PictureUrl1 ?? getPlaceholder()"
             :title="restaurant.RestaurantName"
             :description="restaurant.Class"
             :location="restaurant.City"
@@ -116,7 +115,7 @@
         <InfoCard
           v-for="(hotel, idx) in store.hotels"
           :key="hotel.ID"
-          :cover="hotel.Picture?.PictureUrl1 ?? placeholder"
+          :cover="hotel.Picture?.PictureUrl1 ?? getPlaceholder()"
           :title="hotel.HotelName"
           :description="hotel.Class"
           :location="hotel.City"
@@ -137,12 +136,17 @@ import Button from '@/components/Button.vue'
 import CitySelector from '@/components/CitySelector.vue'
 import InfoCard from '@/components/InfoCard.vue'
 import FoodCard from '@/components/FoodCard.vue'
+import { toRefs, watch } from 'vue'
 import { useRoot } from '@/stores/root'
 import { useRouter } from 'vue-router'
 const store = useRoot()
 const router = useRouter()
-const placeholder = `https://picsum.photos/id/${Math.floor(
-  Math.random() * 150
-)}/500/300`
+const getPlaceholder = () =>
+  `https://picsum.photos/id/${Math.floor(Math.random() * 150)}/500/300`
+
+const { currentCity } = toRefs(store)
+watch(currentCity, city => {
+  store.fetchPageData(city.value)
+})
 store.fetchPageData(store.currentCity.value)
 </script>
