@@ -21,7 +21,6 @@
 </template>
 
 <script lang="ts" setup>
-import Tag from '@/components/Tag.vue'
 defineProps({
   cover: {
     type: String,

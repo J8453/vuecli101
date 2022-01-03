@@ -37,7 +37,6 @@
 <script lang="ts" setup>
 import { PropType } from 'vue'
 import { useRoot, Region } from '@/stores/root'
-import RegionCard from './RegionCard.vue'
 const store = useRoot()
 const regions = [
   {

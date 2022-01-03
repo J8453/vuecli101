@@ -34,7 +34,6 @@
 
 <script lang="ts" setup>
 import { currencyFormat } from '@/utils/currency'
-import Tag from '@/components/Tag.vue'
 defineProps({
   cover: {
     type: String,

@@ -22,10 +22,9 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "auto-imports.d.ts",
-    "components.d.ts",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "**/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }
