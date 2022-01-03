@@ -73,19 +73,23 @@ export const useRoot = defineStore('root', {
     },
   },
   actions: {
-    async setCurrentRegion(region: Region) {
-      this.activities = []
+    setCurrentRegion(region: Region) {
       this.currentRegion = region
       const cities = CITIES[region]
       const currentCity = cities[0]
       this.cities = cities
-      await this.setCurrentCity(currentCity)
+
+      if (this.currentCity === currentCity) return
+      this.setCurrentCity(currentCity)
     },
-    async setCurrentCity(city: { name: string; value: string }) {
+    setCurrentCity(city: { name: string; value: string }) {
       this.currentCity = city
     },
     async fetchPageData(cityValue: string) {
       console.log(`fetching city data: `, cityValue)
+      this.activities = []
+      this.restaurants = []
+      this.hotels = []
 
       const [activities, restaurants, hotels] = await Promise.all([
         getActivities({ city: cityValue, $top: 6 }),
@@ -100,6 +104,10 @@ export const useRoot = defineStore('root', {
     },
     async fetchDetailPageData(cityValue: string) {
       console.log(`fetching city data: `, cityValue)
+      this.activities = []
+      this.restaurants = []
+      this.hotels = []
+      this.spots = []
 
       const [activities, restaurants, hotels, spots] = await Promise.all([
         getActivities({ city: cityValue, $top: 32 }),
