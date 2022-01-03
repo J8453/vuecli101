@@ -77,9 +77,9 @@ export const useRoot = defineStore('root', {
       this.currentRegion = region
       const cities = CITIES[region]
       const currentCity = cities[0]
-      this.cities = cities
 
-      if (this.currentCity === currentCity) return
+      if (this.currentCity.value === currentCity.value) return
+      this.cities = cities
       this.setCurrentCity(currentCity)
     },
     setCurrentCity(city: { name: string; value: string }) {
