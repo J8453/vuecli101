@@ -132,14 +132,7 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/Button.vue'
-import CitySelector from '@/components/CitySelector.vue'
-import InfoCard from '@/components/InfoCard.vue'
-import FoodCard from '@/components/FoodCard.vue'
-import { watch } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useRoot } from '@/stores/root'
-import { useRouter } from 'vue-router'
 const store = useRoot()
 const router = useRouter()
 const getPlaceholder = () =>

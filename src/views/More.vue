@@ -150,8 +150,6 @@
 </template>
 
 <script lang="ts" setup>
-import { watch } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useRoot } from '@/stores/root'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
@@ -159,9 +157,6 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import 'swiper/css/grid'
 import SwiperCore, { Pagination, Navigation, Grid } from 'swiper'
-import CitySelector from '@/components/CitySelector.vue'
-import InfoCard from '@/components/InfoCard.vue'
-import FoodCard from '@/components/FoodCard.vue'
 SwiperCore.use([Pagination, Navigation, Grid])
 const store = useRoot()
 const getPlaceholder = () =>
