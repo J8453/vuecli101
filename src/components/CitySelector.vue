@@ -14,7 +14,7 @@
     </div>
     <div class="pt-9 pb-16">
       <span
-        v-for="city in store.cities"
+        v-for="city in rootStore.cities"
         :key="city.value"
         class="text-sm rounded-2xl px-3 py-2 mx-2 hover:bg-white cursor-pointer"
         @click="$emit('cityChange', city)"
@@ -36,8 +36,8 @@
 
 <script lang="ts" setup>
 import { PropType } from 'vue'
-import { useRoot, Region } from '@/stores/root'
-const store = useRoot()
+import { useRootStore, Region } from '@/stores/root'
+const rootStore = useRootStore()
 const regions = [
   {
     key: Region.north,

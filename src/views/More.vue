@@ -8,10 +8,10 @@
         <div class="ml-28 mr-20">
           <div class="font-extrabold text-2xl w-auto mb-3">縣市快選</div>
           <CitySelector
-            :current-region="store.currentRegion"
-            :current-city="store.currentCity"
-            @region-change="region => store.setCurrentRegion(region)"
-            @city-change="city => store.setCurrentCity(city)"
+            :current-region="rootStore.currentRegion"
+            :current-city="rootStore.currentCity"
+            @region-change="region => rootStore.setCurrentRegion(region)"
+            @city-change="city => rootStore.setCurrentCity(city)"
           />
         </div>
       </div>
@@ -20,7 +20,7 @@
     <div class="py-7 flex flex-col items-center">
       <div class="self-start flex text-xl mx-[80px] my-7">
         <div class="text-green-700 font-bold mr-3">
-          {{ store.currentCity.name }}
+          {{ rootStore.currentCity.name }}
         </div>
         <div>景點介紹</div>
       </div>
@@ -36,7 +36,10 @@
           }"
           :navigation="true"
         >
-          <swiper-slide v-for="spot in store.spots" :key="spot.ScenicSpotID">
+          <swiper-slide
+            v-for="spot in rootStore.spots"
+            :key="spot.ScenicSpotID"
+          >
             <InfoCard
               :key="spot.ScenicSpotID"
               :cover="spot?.Picture?.PictureUrl1 ?? getPlaceholder()"
@@ -69,7 +72,7 @@
           :navigation="true"
         >
           <swiper-slide
-            v-for="activity in store.activities"
+            v-for="activity in rootStore.activities"
             :key="activity.ActivityID"
           >
             <InfoCard
@@ -102,7 +105,7 @@
           :navigation="true"
         >
           <swiper-slide
-            v-for="restaurant in store.restaurants"
+            v-for="restaurant in rootStore.restaurants"
             :key="restaurant.RestaurantID"
           >
             <FoodCard
@@ -134,7 +137,7 @@
           }"
           :navigation="true"
         >
-          <swiper-slide v-for="hotel in store.hotels" :key="hotel.HotelID">
+          <swiper-slide v-for="hotel in rootStore.hotels" :key="hotel.HotelID">
             <InfoCard
               :cover="hotel.Picture?.PictureUrl1 ?? getPlaceholder()"
               :title="hotel.HotelName"
@@ -150,7 +153,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useRoot } from '@/stores/root'
+import { useRootStore } from '@/stores/root'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -158,23 +161,13 @@ import 'swiper/css/navigation'
 import 'swiper/css/grid'
 import SwiperCore, { Pagination, Navigation, Grid } from 'swiper'
 SwiperCore.use([Pagination, Navigation, Grid])
-const store = useRoot()
+const rootStore = useRootStore()
 const getPlaceholder = () =>
   `https://picsum.photos/id/${Math.floor(Math.random() * 150)}/500/300`
 
-const { currentCity } = storeToRefs(store)
+const { currentCity } = storeToRefs(rootStore)
 watch(currentCity, city => {
-  store.fetchDetailPageData(city.value)
+  rootStore.fetchDetailPageData(city.value)
 })
-store.fetchDetailPageData(store.currentCity.value)
+rootStore.fetchDetailPageData(rootStore.currentCity.value)
 </script>
-
-<style>
-.swiper-button-prev,
-.swiper-button-next {
-  color: #15803d;
-}
-.swiper-pagination-bullet-active {
-  background: #15803d;
-}
-</style>

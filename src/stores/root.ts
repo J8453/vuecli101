@@ -53,7 +53,7 @@ const CITIES = {
   ],
 }
 
-export const useRoot = defineStore('root', {
+export const useRootStore = defineStore('root', {
   // arrow function recommended for full type inference
   state: () => {
     return {

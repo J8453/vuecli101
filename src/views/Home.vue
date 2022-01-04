@@ -28,10 +28,10 @@
           <div>Choose Cities</div>
         </div>
         <CitySelector
-          :current-region="store.currentRegion"
-          :current-city="store.currentCity"
-          @region-change="region => store.setCurrentRegion(region)"
-          @city-change="city => store.setCurrentCity(city)"
+          :current-region="rootStore.currentRegion"
+          :current-city="rootStore.currentCity"
+          @region-change="region => rootStore.setCurrentRegion(region)"
+          @city-change="city => rootStore.setCurrentCity(city)"
         />
       </div>
     </div>
@@ -40,11 +40,11 @@
         src="@/assets/home-deco2.png"
         class="absolute right-0 bottom-[-270px] -z-10"
       />
-      <div v-if="store.activities.length === 0">Loading</div>
+      <div v-if="rootStore.activities.length === 0">Loading</div>
       <div v-else class="relative">
         <div class="flex justify-center items-center">
           <InfoCard
-            v-for="activity in store.activitiesGroup[0]"
+            v-for="activity in rootStore.activitiesGroup[0]"
             :key="activity.ID"
             :cover="activity?.Picture?.PictureUrl1 ?? getPlaceholder()"
             :title="activity.ActivityName"
@@ -67,7 +67,7 @@
         </div>
         <div class="flex justify-center items-center">
           <InfoCard
-            v-for="activity in store.activitiesGroup[1]"
+            v-for="activity in rootStore.activitiesGroup[1]"
             :key="activity.ID"
             :cover="activity?.Picture?.PictureUrl1 ?? getPlaceholder()"
             :title="activity.ActivityName"
@@ -93,7 +93,7 @@
         </div>
         <div class="flex overflow-x-scroll">
           <FoodCard
-            v-for="restaurant in store.restaurants"
+            v-for="restaurant in rootStore.restaurants"
             :key="restaurant.ID"
             :cover="restaurant.Picture?.PictureUrl1 ?? getPlaceholder()"
             :title="restaurant.RestaurantName"
@@ -113,7 +113,7 @@
       </div>
       <div class="flex justify-center my-7 relative">
         <InfoCard
-          v-for="(hotel, idx) in store.hotels"
+          v-for="(hotel, idx) in rootStore.hotels"
           :key="hotel.ID"
           :cover="hotel.Picture?.PictureUrl1 ?? getPlaceholder()"
           :title="hotel.HotelName"
@@ -132,15 +132,15 @@
 </template>
 
 <script lang="ts" setup>
-import { useRoot } from '@/stores/root'
-const store = useRoot()
+import { useRootStore } from '@/stores/root'
+const rootStore = useRootStore()
 const router = useRouter()
 const getPlaceholder = () =>
   `https://picsum.photos/id/${Math.floor(Math.random() * 150)}/500/300`
 
-const { currentCity } = storeToRefs(store)
+const { currentCity } = storeToRefs(rootStore)
 watch(currentCity, city => {
-  store.fetchPageData(city.value)
+  rootStore.fetchPageData(city.value)
 })
-store.fetchPageData(store.currentCity.value)
+rootStore.fetchPageData(rootStore.currentCity.value)
 </script>
